@@ -1,0 +1,10 @@
+.css-1jz7hv7-MuiImageList-root {
+  width: 100vw !important;
+  height: 100vh !important;
+  /* overflow-y: scroll; */
+}
+
+/* #imgList {
+  grid-template-columns: auto minmax(1fr, 1fr, 1fr, 1fr) !important;
+  border: 1px soil red;
+} */

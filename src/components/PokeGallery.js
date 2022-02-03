@@ -12,10 +12,21 @@ const PokeGallery = ({ type, setType }) => {
   const [pokemon, setPokemon] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [singlePokemon, setSinglePokemon] = useState(1);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (e) => {
+    setSinglePokemon(e.target.attributes["value"].value);
+    console.log(e);
+    console.log(e.target.attributes["value"].value);
+    setOpen(true);
+    console.log(open);
+  };
+  const handleClose = (e) => {
+    // console.log(e);
+    // console.log(e.target.attributes["value"].value);
+    setOpen(false);
+  };
 
   const style = {
     position: "absolute",
@@ -61,17 +72,25 @@ const PokeGallery = ({ type, setType }) => {
         open={open}
         setOpen={setOpen}
         handleClose={handleClose}
+        singlePokemon={singlePokemon}
+        setSinglePokemon={setSinglePokemon}
       />
       <ImageListItem key="Subheader" cols={4}>
         <ListSubheader component="div"></ListSubheader>
       </ImageListItem>
       {filteredPokes.map((poke) => (
-        <ImageListItem key={poke.id} onClick={handleOpen}>
+        <ImageListItem
+          key={poke.id}
+          onClick={handleOpen}
+          style={{ backgroundColor: "lightblue" }}
+        >
           <img
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${poke.id}.png`}
-            alt={poke.name}
+            alt={poke.name.english}
             width="200px"
             height="200px"
+            value={poke.id}
+            name={poke.name.english}
           />
           <ImageListItemBar title={poke.name.english} />
         </ImageListItem>
@@ -80,8 +99,9 @@ const PokeGallery = ({ type, setType }) => {
   );
 };
 
-{
-  /* {filteredPokes.map((poke) => {
+export default PokeGallery;
+
+/* {filteredPokes.map((poke) => {
         return (
           <>
             <div>
@@ -111,26 +131,24 @@ const PokeGallery = ({ type, setType }) => {
           </>
         );
       })} */
-  // return (
-  //   <>
-  //     <ImageList sx={{ width: 500, height: 450 }}>
-  //       <ImageListItem key="Subheader" cols={2}>
-  //         <ListSubheader component="div">December</ListSubheader>
-  //       </ImageListItem>
-  //       {filteredPokes.map((item, index) => (
-  //         <ImageListItem key={item.index}>
-  //           <img
-  //             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${poke.id}.png?w=248&fit=crop&auto=format`}
-  //             srcSet={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${poke.id}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-  //             alt={poke.name}
-  //             loading="lazy"
-  //           />
-  //           <ImageListItemBar title={poke.name} />
-  //         </ImageListItem>
-  //       ))}
-  //     </ImageList>
-  //   </>
-  // )
-}
-
-export default PokeGallery;
+// return (
+//   <>
+//     <ImageList sx={{ width: 500, height: 450 }}>
+//       <ImageListItem key="Subheader" cols={2}>
+//         <ListSubheader component="div">December</ListSubheader>
+//       </ImageListItem>
+//       {filteredPokes.map((item, index) => (
+//         <ImageListItem key={item.index}>
+//           <img
+//             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${poke.id}.png?w=248&fit=crop&auto=format`}
+//             srcSet={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${poke.id}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
+//             alt={poke.name}
+//             loading="lazy"
+//           />
+//           <ImageListItemBar title={poke.name} />
+//         </ImageListItem>
+//       ))}
+//     </ImageList>
+//   </>
+// )
+//}

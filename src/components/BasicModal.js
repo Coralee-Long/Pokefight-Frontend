@@ -25,12 +25,8 @@ export default function BasicModal({
   handleClose,
   handleOpen,
   singlePokemon,
+  setSinglePokemon,
 }) {
-  // const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-  //console.log("Id inside Basic Modal" + singlePokemon);
-
   const [poke, setPoke] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -51,8 +47,12 @@ export default function BasicModal({
   };
 
   useEffect(() => {
+    // if (singlePokemon === 0) {
+    //   singlePokemon = 1;
+    //   //setSinglePokemon(1);
+    // }
     fetchData();
-  }, []);
+  }, [singlePokemon]);
 
   if (loading) return <h1>Loading......</h1>;
   if (error) return <h1>Something is wrong....</h1>;

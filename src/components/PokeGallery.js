@@ -12,6 +12,7 @@ const PokeGallery = ({ type, setType }) => {
   const [pokemon, setPokemon] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  // const [singlePokemon, setSinglePokemon] = useState(0);
   const [singlePokemon, setSinglePokemon] = useState(1);
 
   const [open, setOpen] = useState(false);

@@ -52,7 +52,7 @@ const PokemonButton = ({ type, setType }) => {
               value={p}
               onClick={handleClick}
               variant="contained"
-              margin="7px"
+              style={{ margin: "70px !important" }}
             >
               {p}
             </Button>

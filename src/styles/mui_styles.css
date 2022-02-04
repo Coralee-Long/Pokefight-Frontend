@@ -4,6 +4,11 @@
   /* overflow-y: scroll; */
 }
 
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  margin: 8px !important;
+  background-color: rgb(20, 129, 165) !important;
+  width: 90px;
+}
 /* #imgList {
   grid-template-columns: auto minmax(1fr, 1fr, 1fr, 1fr) !important;
   border: 1px soil red;

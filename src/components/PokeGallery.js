@@ -8,25 +8,32 @@ import ListSubheader from "@mui/material/ListSubheader";
 import "../styles/mui_styles.css";
 import BasicModal from "../components/BasicModal";
 
-const PokeGallery = ({ type, setType }) => {
-  const [pokemon, setPokemon] = useState([]);
+const PokeGallery = ({
+  type,
+  setType,
+  pokemon,
+  setPokemon,
+  singlePoke,
+  setSinglePoke,
+  singlePokeId,
+  setSinglePokeId,
+}) => {
+  // const [pokemon, setPokemon] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const [singlePokemon, setSinglePokemon] = useState(0);
-  const [singlePokemon, setSinglePokemon] = useState(1);
+  const [loadingSingle, setLoadingSingle] = useState(true);
+  // const [singlePokemon, setSinglePokemon] = useState(1);
 
   const [open, setOpen] = useState(false);
   const handleOpen = (e) => {
-    setSinglePokemon(e.target.attributes["value"].value);
-    console.log(e);
-    console.log(e.target.attributes["value"].value);
-    setOpen(true);
-    console.log(open);
+    setSinglePokeId(e.target.attributes["value"].value);
+    // setOpen(true);
   };
   const handleClose = (e) => {
     // console.log(e);
     // console.log(e.target.attributes["value"].value);
     setOpen(false);
+    setSinglePokeId(0);
   };
 
   const style = {
@@ -41,7 +48,7 @@ const PokeGallery = ({ type, setType }) => {
     p: 4,
   };
 
-  //fetch data
+  //fetch all Pokemon
   const fetchData = async () => {
     try {
       await axios.get("https://poke-wars.herokuapp.com/pokemon").then((res) => {
@@ -54,6 +61,33 @@ const PokeGallery = ({ type, setType }) => {
     }
   };
 
+  // fetch one Pokemon
+  const fetchSinglePokeData = async () => {
+    try {
+      await axios
+        .get(`https://poke-wars.herokuapp.com/pokemon/${singlePokeId}`)
+        .then((res) => {
+          setSinglePoke(res.data);
+          setLoadingSingle(false);
+          console.log(res.data);
+        });
+    } catch (e) {
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (singlePokeId !== 0) {
+      //singlePokemon = 1;
+      //   //setSinglePokemon(1);
+      fetchSinglePokeData();
+      setOpen(true);
+      //setLoadingSingle(false);
+    } else {
+      setLoadingSingle(true);
+    }
+  }, [singlePokeId, loadingSingle]);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -62,20 +96,33 @@ const PokeGallery = ({ type, setType }) => {
   const filteredPokes = pokemon.filter((p) => p.type.includes(type));
   console.log(filteredPokes);
 
+  if (loading) return <h1>Loading......</h1>;
+  if (error) return <h1>Something is wrong....</h1>;
   return (
     <ImageList
       id="imgList"
       sx={{ width: 200, height: 450 }}
       style={{ gridTemplateColumns: "auto minmax(1fr,1fr, 1fr, 1fr)" }}
     >
-      <BasicModal
-        handelOpen={handleOpen}
-        open={open}
-        setOpen={setOpen}
-        handleClose={handleClose}
-        singlePokemon={singlePokemon}
-        setSinglePokemon={setSinglePokemon}
-      />
+      {" "}
+      {loadingSingle === false ? (
+        <BasicModal
+          handleOpen={handleOpen}
+          open={open}
+          setOpen={setOpen}
+          handleClose={handleClose}
+          type={type}
+          setType={setType}
+          pokemon={pokemon}
+          setPokemon={setPokemon}
+          singlePoke={singlePoke}
+          setSinglePoke={setSinglePoke}
+          singlePokeId={singlePokeId}
+          setSinglePokeId={setSinglePokeId}
+        />
+      ) : (
+        <div></div>
+      )}
       <ImageListItem key="Subheader" cols={4}>
         <ListSubheader component="div"></ListSubheader>
       </ImageListItem>

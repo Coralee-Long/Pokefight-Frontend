@@ -24,38 +24,23 @@ export default function BasicModal({
   setOpen,
   handleClose,
   handleOpen,
-  singlePokemon,
-  setSinglePokemon,
+  type,
+  setType,
+  pokemon,
+  setPokemon,
+  singlePoke,
+  setSinglePoke,
+  singlePokeId,
+  setSinglePokeId,
 }) {
-  const [poke, setPoke] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [poke, setPoke] = useState([]);
+  // const [error, setError] = useState(false);
+  // const [loading, setLoading] = useState(true);
 
-  //fetch data
-  const fetchData = async () => {
-    try {
-      await axios
-        .get(`https://poke-wars.herokuapp.com/pokemon/${singlePokemon}`)
-        .then((res) => {
-          setPoke(res.data);
-          setLoading(false);
-          console.log(res.data);
-        });
-    } catch (e) {
-      setError(true);
-    }
-  };
+  console.log(singlePoke);
 
-  useEffect(() => {
-    // if (singlePokemon === 0) {
-    //   singlePokemon = 1;
-    //   //setSinglePokemon(1);
-    // }
-    fetchData();
-  }, [singlePokemon]);
-
-  if (loading) return <h1>Loading......</h1>;
-  if (error) return <h1>Something is wrong....</h1>;
+  // if (loading) return <h1>Loading......</h1>;
+  // if (error) return <h1>Something is wrong....</h1>;
   return (
     <div>
       <Modal
@@ -67,29 +52,32 @@ export default function BasicModal({
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <div>
-              <h1>{poke.name.english}</h1>
+              <h1>{singlePoke.name.english}</h1>
               <div>
                 <img
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${poke.id}.png`}
-                  alt={poke.name}
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${singlePoke.id}.png`}
+                  alt={singlePoke.name}
                   width="150px"
                   height="150px"
                 />
               </div>
-              {poke.type.map((poketype) => (
+              {singlePoke.type.map((poketype) => (
                 <>
                   <p>{poketype}</p>
                 </>
               ))}
               <ul>
-                <li>Attack: {poke.base.Attack}</li>
-                <li>Defense: {poke.base.Defense}</li>
-                <li>HP: {poke.base.HP}</li>
-                <li>Speed: {poke.base.Speed}</li>
-                <li>Special Attack: {poke.base["Sp. Attack"]}</li>
-                <li>Special Defense: {poke.base["Sp. Defense"]}</li>
+                <li>Attack: {singlePoke.base.Attack}</li>
+                <li>Defense: {singlePoke.base.Defense}</li>
+                <li>HP: {singlePoke.base.HP}</li>
+                <li>Speed: {singlePoke.base.Speed}</li>
+                <li>Special Attack: {singlePoke.base["Sp. Attack"]}</li>
+                <li>Special Defense: {singlePoke.base["Sp. Defense"]}</li>
               </ul>
             </div>
+            <Button variant="outlined" color="error">
+              Choose
+            </Button>
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
         </Box>

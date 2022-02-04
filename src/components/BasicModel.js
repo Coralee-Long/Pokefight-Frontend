@@ -64,7 +64,7 @@ export default function BasicModel({
               <div>
                 <img
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${singlePoke.id}.png`}
-                  alt={singlePoke.name}
+                  alt={singlePoke.name.english}
                   width="150px"
                   height="150px"
                 />

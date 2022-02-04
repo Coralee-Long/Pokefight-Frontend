@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react-router-dom";
 
-const RandomPoke = ({
+const ComputerPoke = ({
   type,
   setType,
   pokemon,
@@ -24,7 +24,19 @@ const RandomPoke = ({
   console.log(randomPoke);
   //return randomPoke;
 
-  return <div>{randomPoke.name.english}</div>;
+  return (
+    <div className="ComputerMainContainer">
+      <h1 className="BattleMainHeading">{randomPoke.name.english}</h1>
+      <img
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${randomPoke.id}.png`}
+        alt={randomPoke.name.english}
+        width="600px"
+        height="auto"
+        value={randomPoke.id}
+        name={randomPoke.name.english}
+      />
+    </div>
+  );
 };
 
-export default RandomPoke;
+export default ComputerPoke;

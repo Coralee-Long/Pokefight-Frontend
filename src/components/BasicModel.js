@@ -28,6 +28,18 @@ export default function BasicModel({
   handleOpenConfirm,
   setBasicModelState,
   basicModelState,
+  type,
+  setType,
+  pokemon,
+  setPokemon,
+  singlePokeId,
+  setSinglePokeId,
+  error,
+  setError,
+  loading,
+  setLoading,
+  loadingSingle,
+  setLoadingSingle,
 }) {
   // const [poke, setPoke] = useState([]);
   // const [error, setError] = useState(false);

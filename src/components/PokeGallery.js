@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import pokemonData from "../data/pokemonData";
 import axios from "axios";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -19,11 +18,15 @@ const PokeGallery = ({
   setSinglePoke,
   singlePokeId,
   setSinglePokeId,
+  error,
+  setError,
+  loading,
+  setLoading,
+  loadingSingle,
+  setLoadingSingle,
 }) => {
   // ERROR & LOADING STATES DEFINED:
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [loadingSingle, setLoadingSingle] = useState(true);
+
   // MODAL STATES DEFINED:
   const [basicModelState, setBasicModelState] = useState(false);
   const [confirmModelState, setConfirmModelState] = useState(false);
@@ -51,62 +54,15 @@ const PokeGallery = ({
   };
   const handleCloseConfirm = (e) => {
     setConfirmModelState(false);
+    setSinglePokeId(0);
   };
 
-  // ----------------------------------------------
-
-  // FETCHING ALL DATA:
-  //fetch all Pokemon
-  const fetchData = async () => {
-    try {
-      await axios.get("https://poke-wars.herokuapp.com/pokemon").then((res) => {
-        setPokemon(res.data);
-        setLoading(false);
-        //console.log(res.data);
-      });
-    } catch (e) {
-      setError(true);
-    }
-  };
-
-  // fetch one Pokemon
-  const fetchSinglePokeData = async () => {
-    try {
-      await axios
-        .get(`https://poke-wars.herokuapp.com/pokemon/${singlePokeId}`)
-        .then((res) => {
-          setSinglePoke(res.data);
-          setLoadingSingle(false);
-          //console.log(res.data);
-        });
-    } catch (e) {
-      setError(true);
-    }
-  };
-  // ----------------------------------------------
-
-  // USE EFFECTS FOR DATA FETCHING
-  useEffect(() => {
-    if (singlePokeId !== 0) {
-      //singlePokemon = 1;
-      //   //setSinglePokemon(1);
-      fetchSinglePokeData();
-      // setBasicModelState(true);
-      //setLoadingSingle(false);
-    } else {
-      setLoadingSingle(true);
-    }
-  }, [singlePokeId, loadingSingle]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
   // ----------------------------------------------
 
   // FILTERING DATA:
   //filter pokemon based on it's selection
-  const filteredPokes = pokemon.filter((p) => p.type.includes(type));
-  //console.log(filteredPokes);
+  const filteredPokes = pokemon && pokemon.filter((p) => p.type.includes(type));
+  // console.log(pokemon);
 
   // ----------------------------------------------
 
@@ -123,20 +79,36 @@ const PokeGallery = ({
       {loadingSingle === false ? (
         <>
           <BasicModel
+            pokemon={pokemon}
+            setPokemon={setPokemon}
             handleClose={handleClose}
             basicModelState={basicModelState}
             setBasicModelState={setBasicModelState}
             singlePoke={singlePoke}
             setSinglePoke={setSinglePoke}
             handleOpenConfirm={handleOpenConfirm}
+            error={error}
+            setError={setError}
+            loading={loading}
+            setLoading={setLoading}
+            loadingSingle={loadingSingle}
+            setLoadingSingle={setLoadingSingle}
           />
           <ConfirmModel
+            pokemon={pokemon}
+            setPokemon={setPokemon}
             setConfirmModelState={setConfirmModelState}
             confirmModelState={confirmModelState}
             handleOpenConfirm={handleOpenConfirm}
             handleCloseConfirm={handleCloseConfirm}
             singlePoke={singlePoke}
             setSinglePoke={setSinglePoke}
+            error={error}
+            setError={setError}
+            loading={loading}
+            setLoading={setLoading}
+            loadingSingle={loadingSingle}
+            setLoadingSingle={setLoadingSingle}
           />
         </>
       ) : (

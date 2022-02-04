@@ -1,8 +1,25 @@
-const BattleField = () => {
+import RandomPoke from "../components/RandomPoke";
+
+const BattleField = ({
+  type,
+  setType,
+  pokemon,
+  setPokemon,
+  singlePoke,
+  setSinglePoke,
+  singlePokeId,
+  setSinglePokeId,
+  error,
+  setError,
+  loading,
+  setLoading,
+  loadingSingle,
+  setLoadingSingle,
+}) => {
   return (
     <>
       <h1>Choose Your Battlefield!</h1>
-
+      <RandomPoke pokemon={pokemon} />
       <img
         src="https://assets.pokemon.com//assets/cms2/img/misc/virtual-backgrounds/masters/city.jpg"
         alt="City"

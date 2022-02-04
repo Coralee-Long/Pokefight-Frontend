@@ -12,9 +12,15 @@ const Home = ({
   setSinglePoke,
   singlePokeId,
   setSinglePokeId,
+  error,
+  setError,
+  loading,
+  setLoading,
+  loadingSingle,
+  setLoadingSingle,
 }) => {
   //console.log(type);
-
+  // console.log(pokemon);
   return (
     <>
       <h1>Welcome to the Pokemon Games</h1>
@@ -28,6 +34,12 @@ const Home = ({
         setSinglePoke={setSinglePoke}
         singlePokeId={singlePokeId}
         setSinglePokeId={setSinglePokeId}
+        error={error}
+        setError={setError}
+        loading={loading}
+        setLoading={setLoading}
+        loadingSingle={loadingSingle}
+        setLoadingSingle={setLoadingSingle}
       />
       {/* // Gallery COMPONENT: */}
       <div>
@@ -40,6 +52,12 @@ const Home = ({
           setSinglePoke={setSinglePoke}
           singlePokeId={singlePokeId}
           setSinglePokeId={setSinglePokeId}
+          error={error}
+          setError={setError}
+          loading={loading}
+          setLoading={setLoading}
+          loadingSingle={loadingSingle}
+          setLoadingSingle={setLoadingSingle}
         />
       </div>
       {/* <Link to={`/choose`}>

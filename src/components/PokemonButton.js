@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 
-const PokemonButton = ({ type, setType }) => {
-  const [pokemon, setPokemon] = useState([]);
+const PokemonButton = ({ type, setType, pokemon, setPokemon }) => {
+  // const [pokemon, setPokemon] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 

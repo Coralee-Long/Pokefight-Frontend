@@ -24,6 +24,23 @@ export default function ConfirmModel({
   handleCloseConfirm,
   singlePoke,
   setSinglePoke,
+  handleClose,
+  showConfirmModel,
+  setShowConfirmModel,
+  setBasicModelState,
+  basicModelState,
+  type,
+  setType,
+  pokemon,
+  setPokemon,
+  singlePokeId,
+  setSinglePokeId,
+  error,
+  setError,
+  loading,
+  setLoading,
+  loadingSingle,
+  setLoadingSingle,
 }) {
   let navigate = useNavigate();
   console.log(singlePoke);
@@ -44,10 +61,7 @@ export default function ConfirmModel({
             height="50px"
           />
           <p>ARE YOU SURE?</p>
-          <Button
-            variant="outlined"
-            onClick={() => setConfirmModelState(false)}
-          >
+          <Button variant="outlined" onClick={handleCloseConfirm}>
             Choose another Poke
           </Button>
           <Button variant="outlined" onClick={() => navigate("/battle")}>

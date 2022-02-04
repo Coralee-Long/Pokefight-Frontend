@@ -4,15 +4,41 @@ import PokeVsPoke from "./pages/PokeVsPoke";
 import BattleField from "./pages/BattleField";
 import { useState } from "react";
 
-const AppRouter = () => {
-  const [type, setType] = useState("Normal");
-  const [pokemon, setPokemon] = useState([]);
-  const [singlePokeId, setSinglePokeId] = useState(0);
-  const [singlePoke, setSinglePoke] = useState([]);
-
+const AppRouter = ({
+  type,
+  setType,
+  pokemon,
+  setPokemon,
+  singlePoke,
+  setSinglePoke,
+  singlePokeId,
+  setSinglePokeId,
+  error,
+  setError,
+  loading,
+  setLoading,
+  loadingSingle,
+  setLoadingSingle,
+}) => {
+  // console.log(pokemon);
   return (
-    <>
-      <Routes>
+    <div>
+      <Routes
+        type={type}
+        setType={setType}
+        pokemon={pokemon}
+        setPokemon={setPokemon}
+        singlePoke={singlePoke}
+        setSinglePoke={setSinglePoke}
+        singlePokeId={singlePokeId}
+        setSinglePokeId={setSinglePokeId}
+        error={error}
+        setError={setError}
+        loading={loading}
+        setLoading={setLoading}
+        loadingSingle={loadingSingle}
+        setLoadingSingle={setLoadingSingle}
+      >
         <Route
           path="/"
           element={
@@ -25,15 +51,40 @@ const AppRouter = () => {
               setSinglePoke={setSinglePoke}
               singlePokeId={singlePokeId}
               setSinglePokeId={setSinglePokeId}
+              error={error}
+              setError={setError}
+              loading={loading}
+              setLoading={setLoading}
+              loadingSingle={loadingSingle}
+              setLoadingSingle={setLoadingSingle}
             />
           }
         ></Route>
-        <Route path="/choose" element={<PokeVsPoke />}></Route>
-        <Route path="/battle" element={<BattleField />}></Route>
+        <Route
+          path="/battle"
+          element={
+            <BattleField
+              type={type}
+              setType={setType}
+              pokemon={pokemon}
+              setPokemon={setPokemon}
+              singlePoke={singlePoke}
+              setSinglePoke={setSinglePoke}
+              singlePokeId={singlePokeId}
+              setSinglePokeId={setSinglePokeId}
+              error={error}
+              setError={setError}
+              loading={loading}
+              setLoading={setLoading}
+              loadingSingle={loadingSingle}
+              setLoadingSingle={setLoadingSingle}
+            />
+          }
+        ></Route>
 
         {/*these are routes to get data from API */}
       </Routes>
-    </>
+    </div>
   );
 };
 

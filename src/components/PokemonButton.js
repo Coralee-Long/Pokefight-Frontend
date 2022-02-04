@@ -44,15 +44,15 @@ const PokemonButton = ({ type, setType }) => {
     <>
       <form onSubmit={handleSubmit}>
         <div className="button-container">
-          {pokemonTypes.map((p) => (
+          {pokemonTypes.map((p, index) => (
             <Button
-              primary
               type="submit"
               name={p}
               value={p}
               onClick={handleClick}
               variant="contained"
               style={{ margin: "70px !important" }}
+              key={index}
             >
               {p}
             </Button>

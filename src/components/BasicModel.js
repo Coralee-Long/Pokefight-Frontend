@@ -19,32 +19,28 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({
-  open,
-  setOpen,
+export default function BasicModel({
   handleClose,
-  handleOpen,
-  type,
-  setType,
-  pokemon,
-  setPokemon,
   singlePoke,
   setSinglePoke,
-  singlePokeId,
-  setSinglePokeId,
+  showConfirmModel,
+  setShowConfirmModel,
+  handleOpenConfirm,
+  setBasicModelState,
+  basicModelState,
 }) {
   // const [poke, setPoke] = useState([]);
   // const [error, setError] = useState(false);
   // const [loading, setLoading] = useState(true);
 
-  console.log(singlePoke);
+  //console.log(singlePoke);
 
   // if (loading) return <h1>Loading......</h1>;
   // if (error) return <h1>Something is wrong....</h1>;
   return (
     <div>
       <Modal
-        open={open}
+        open={basicModelState} // basicModelState is Boolean state for only Basic Model
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -61,12 +57,12 @@ export default function BasicModal({
                   height="150px"
                 />
               </div>
-              {singlePoke.type.map((poketype) => (
-                <>
+              {singlePoke.type.map((poketype, index) => (
+                <div key={index}>
                   <p>{poketype}</p>
-                </>
+                </div>
               ))}
-              <ul>
+              <ul key={singlePoke.id}>
                 <li>Attack: {singlePoke.base.Attack}</li>
                 <li>Defense: {singlePoke.base.Defense}</li>
                 <li>HP: {singlePoke.base.HP}</li>
@@ -75,7 +71,11 @@ export default function BasicModal({
                 <li>Special Defense: {singlePoke.base["Sp. Defense"]}</li>
               </ul>
             </div>
-            <Button variant="outlined" color="error">
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={handleOpenConfirm}
+            >
               Choose
             </Button>
           </Typography>

@@ -6,9 +6,11 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ListSubheader from "@mui/material/ListSubheader";
 import "../styles/mui_styles.css";
-import BasicModal from "../components/BasicModal";
+import BasicModel from "./BasicModel";
+import ConfirmModel from "./ConfirmModel";
 
 const PokeGallery = ({
+  // PROPS FROM PARENT (HOME.JS)
   type,
   setType,
   pokemon,
@@ -18,36 +20,42 @@ const PokeGallery = ({
   singlePokeId,
   setSinglePokeId,
 }) => {
-  // const [pokemon, setPokemon] = useState([]);
+  // ERROR & LOADING STATES DEFINED:
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingSingle, setLoadingSingle] = useState(true);
-  // const [singlePokemon, setSinglePokemon] = useState(1);
+  // MODAL STATES DEFINED:
+  const [basicModelState, setBasicModelState] = useState(false);
+  const [confirmModelState, setConfirmModelState] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  // ----------------------------------------------
+
+  // CLICK HANDLERS FOR HOME PAGE:
   const handleOpen = (e) => {
     setSinglePokeId(e.target.attributes["value"].value);
+    setBasicModelState(true);
     // setOpen(true);
   };
   const handleClose = (e) => {
-    // console.log(e);
-    // console.log(e.target.attributes["value"].value);
-    setOpen(false);
+    //console.log("Inside handle close of basic model");
+    setBasicModelState(false);
+    //console.log(basicModelState);
     setSinglePokeId(0);
   };
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
+  const handleOpenConfirm = (e) => {
+    //console.log("Inside handle open confirm ");
+    setBasicModelState(false);
+    setConfirmModelState(true);
+    // console.log(basicModelState);
+    // console.log(confirmModelState);
+  };
+  const handleCloseConfirm = (e) => {
+    setConfirmModelState(false);
   };
 
+  // ----------------------------------------------
+
+  // FETCHING ALL DATA:
   //fetch all Pokemon
   const fetchData = async () => {
     try {
@@ -69,19 +77,21 @@ const PokeGallery = ({
         .then((res) => {
           setSinglePoke(res.data);
           setLoadingSingle(false);
-          console.log(res.data);
+          //console.log(res.data);
         });
     } catch (e) {
       setError(true);
     }
   };
+  // ----------------------------------------------
 
+  // USE EFFECTS FOR DATA FETCHING
   useEffect(() => {
     if (singlePokeId !== 0) {
       //singlePokemon = 1;
       //   //setSinglePokemon(1);
       fetchSinglePokeData();
-      setOpen(true);
+      // setBasicModelState(true);
       //setLoadingSingle(false);
     } else {
       setLoadingSingle(true);
@@ -91,35 +101,44 @@ const PokeGallery = ({
   useEffect(() => {
     fetchData();
   }, []);
+  // ----------------------------------------------
 
+  // FILTERING DATA:
   //filter pokemon based on it's selection
   const filteredPokes = pokemon.filter((p) => p.type.includes(type));
-  console.log(filteredPokes);
+  //console.log(filteredPokes);
 
+  // ----------------------------------------------
+
+  // IF Data is still loading or or error:
   if (loading) return <h1>Loading......</h1>;
   if (error) return <h1>Something is wrong....</h1>;
+  // ELSE return all the data below:
   return (
     <ImageList
       id="imgList"
       sx={{ width: 200, height: 450 }}
       style={{ gridTemplateColumns: "auto minmax(1fr,1fr, 1fr, 1fr)" }}
     >
-      {" "}
       {loadingSingle === false ? (
-        <BasicModal
-          handleOpen={handleOpen}
-          open={open}
-          setOpen={setOpen}
-          handleClose={handleClose}
-          type={type}
-          setType={setType}
-          pokemon={pokemon}
-          setPokemon={setPokemon}
-          singlePoke={singlePoke}
-          setSinglePoke={setSinglePoke}
-          singlePokeId={singlePokeId}
-          setSinglePokeId={setSinglePokeId}
-        />
+        <>
+          <BasicModel
+            handleClose={handleClose}
+            basicModelState={basicModelState}
+            setBasicModelState={setBasicModelState}
+            singlePoke={singlePoke}
+            setSinglePoke={setSinglePoke}
+            handleOpenConfirm={handleOpenConfirm}
+          />
+          <ConfirmModel
+            setConfirmModelState={setConfirmModelState}
+            confirmModelState={confirmModelState}
+            handleOpenConfirm={handleOpenConfirm}
+            handleCloseConfirm={handleCloseConfirm}
+            singlePoke={singlePoke}
+            setSinglePoke={setSinglePoke}
+          />
+        </>
       ) : (
         <div></div>
       )}

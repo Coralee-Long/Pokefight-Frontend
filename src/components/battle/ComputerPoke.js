@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react-router-dom";
-
+import UserHealthBar from "./UserHealthBar";
 const ComputerPoke = ({
   type,
   setType,
@@ -26,6 +26,9 @@ const ComputerPoke = ({
 
   return (
     <div className="ComputerMainContainer">
+      <div className="healthBarUserContainer">
+        <UserHealthBar singlePoke={randomPoke} />
+      </div>
       <h1 className="BattleMainHeading">{randomPoke.name.english}</h1>
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${randomPoke.id}.png`}

@@ -9,6 +9,14 @@
   background-color: rgb(20, 129, 165) !important;
   width: 90px;
 }
+
+
+.css-fj2wnt-MuiLinearProgress-root .MuiLinearProgress-bar {
+  border-radius: 1px !important;
+  /* background-color: orange !important; */
+  background: linear-gradient(270deg, red, yellow) !important;
+}
+
 /* #imgList {
   grid-template-columns: auto minmax(1fr, 1fr, 1fr, 1fr) !important;
   border: 1px soil red;
